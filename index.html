@@ -1,0 +1,626 @@
+```html id="v8l2hx"
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Graduation Invitation</title>
+
+  <!-- FIX FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Montserrat', sans-serif;
+      background:#f7fbff;
+      color:#24324a;
+      overflow-x:hidden;
+    }
+
+    img{
+      width:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    section{
+      padding:100px 20px;
+    }
+
+    .hero{
+      min-height:100vh;
+      position:relative;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      text-align:center;
+      overflow:hidden;
+
+      background:
+        linear-gradient(
+          180deg,
+          #edf6ff 0%,
+          #ffffff 100%
+        );
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+
+      width:700px;
+      height:700px;
+
+      border-radius:50%;
+
+      background:#dbeafe;
+
+      top:-250px;
+      right:-150px;
+
+      filter:blur(40px);
+      opacity:.8;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+
+      width:500px;
+      height:500px;
+
+      border-radius:50%;
+
+      background:#fce7f3;
+
+      bottom:-200px;
+      left:-120px;
+
+      filter:blur(40px);
+      opacity:.8;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      max-width:850px;
+
+      animation:fadeUp 1s ease;
+    }
+
+    .badge{
+      display:inline-block;
+
+      padding:10px 24px;
+
+      border-radius:999px;
+
+      background:white;
+
+      color:#2563eb;
+
+      font-weight:600;
+
+      margin-bottom:28px;
+
+      box-shadow:
+        0 10px 30px rgba(37,99,235,.08);
+    }
+
+    .hero h1{
+      font-size:clamp(44px,8vw,88px);
+
+      line-height:1.15;
+
+      margin-bottom:24px;
+
+      color:#1e3a8a;
+    }
+
+    .hero h1 span{
+      color:#ec4899;
+      font-family:'Noto Serif KR', serif;
+    }
+
+    .hero p{
+      max-width:720px;
+
+      margin:auto;
+
+      line-height:1.9;
+
+      font-size:20px;
+
+      color:#52627d;
+
+      margin-bottom:40px;
+    }
+
+    .btn{
+      display:inline-block;
+
+      padding:16px 34px;
+
+      border-radius:999px;
+
+      text-decoration:none;
+
+      background:#2563eb;
+
+      color:white;
+
+      font-weight:600;
+
+      transition:.3s;
+
+      box-shadow:
+        0 12px 30px rgba(37,99,235,.18);
+    }
+
+    .btn:hover{
+      transform:translateY(-4px);
+      background:#3b82f6;
+    }
+
+    .card{
+      max-width:950px;
+
+      margin:auto;
+
+      background:white;
+
+      border-radius:34px;
+
+      padding:60px;
+
+      text-align:center;
+
+      box-shadow:
+        0 20px 60px rgba(15,23,42,.08);
+    }
+
+    .card h2{
+      font-size:42px;
+      color:#1e3a8a;
+      margin-bottom:18px;
+    }
+
+    .card .sub{
+      line-height:1.9;
+      color:#64748b;
+    }
+
+    .name{
+      font-size:58px;
+
+      margin:34px 0;
+
+      color:#ec4899;
+
+      font-family:'Noto Serif KR', serif;
+    }
+
+    .major{
+      display:inline-block;
+
+      padding:10px 18px;
+
+      border-radius:999px;
+
+      background:#eff6ff;
+
+      color:#2563eb;
+
+      margin-bottom:40px;
+
+      font-weight:600;
+    }
+
+    .info{
+      display:grid;
+
+      grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+      gap:22px;
+    }
+
+    .info-box{
+      background:#f8fbff;
+
+      border-radius:24px;
+
+      padding:30px;
+    }
+
+    .info-box span{
+      display:block;
+      margin-bottom:10px;
+      color:#64748b;
+    }
+
+    .gallery{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .gallery h2,
+    .countdown h2,
+    .footer h2{
+      text-align:center;
+
+      font-size:44px;
+
+      color:#1e3a8a;
+
+      margin-bottom:60px;
+    }
+
+    .gallery-grid{
+      display:grid;
+
+      grid-template-columns:
+        repeat(auto-fit,minmax(260px,1fr));
+
+      gap:22px;
+    }
+
+    .gallery-item{
+      overflow:hidden;
+
+      border-radius:28px;
+
+      background:white;
+
+      box-shadow:
+        0 12px 40px rgba(15,23,42,.06);
+    }
+
+    .gallery-item img{
+      height:360px;
+      transition:.5s;
+    }
+
+    .gallery-item:hover img{
+      transform:scale(1.08);
+    }
+
+    .countdown-box{
+      max-width:850px;
+
+      margin:auto;
+
+      display:grid;
+
+      grid-template-columns:
+        repeat(auto-fit,minmax(140px,1fr));
+
+      gap:22px;
+    }
+
+    .countdown-item{
+      background:white;
+
+      border-radius:28px;
+
+      padding:34px;
+
+      text-align:center;
+
+      box-shadow:
+        0 15px 40px rgba(15,23,42,.06);
+    }
+
+    .countdown-item span{
+      display:block;
+
+      font-size:58px;
+
+      font-weight:700;
+
+      color:#2563eb;
+    }
+
+    .countdown-item small{
+      color:#64748b;
+    }
+
+    .footer{
+      text-align:center;
+      padding-bottom:120px;
+    }
+
+    .footer p{
+      max-width:700px;
+
+      margin:auto;
+
+      line-height:1.9;
+
+      color:#52627d;
+
+      font-size:18px;
+    }
+
+    .quote{
+      margin-top:40px;
+
+      font-size:24px;
+
+      color:#ec4899;
+
+      font-family:'Noto Serif KR', serif;
+
+      line-height:1.8;
+    }
+
+    @keyframes fadeUp{
+
+      from{
+        opacity:0;
+        transform:translateY(40px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:52px;
+      }
+
+      .hero p{
+        font-size:17px;
+      }
+
+      .card{
+        padding:34px 20px;
+      }
+
+      .card h2,
+      .gallery h2,
+      .countdown h2,
+      .footer h2{
+        font-size:32px;
+      }
+
+      .name{
+        font-size:40px;
+      }
+
+      .gallery-item img{
+        height:280px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="badge">
+        🎓 Graduation Invitation 2026
+      </div>
+
+      <h1>
+        Lễ tốt nghiệp của <br/>
+        <span>Đoàn Thị Lệ Huyền</span>
+      </h1>
+
+      <p>
+        Hành trình thanh xuân dưới mái trường đại học
+        đã chính thức khép lại bằng một khoảnh khắc thật đẹp 🌸🇰🇷
+      </p>
+
+      <a href="#invitation" class="btn">
+        Xem thư mời
+      </a>
+
+    </div>
+
+  </section>
+
+  <section id="invitation">
+
+    <div class="card">
+
+      <h2>
+        💌 Thư mời tham dự lễ tốt nghiệp
+      </h2>
+
+      <p class="sub">
+        Trân trọng kính mời bạn đến tham dự
+        buổi lễ tốt nghiệp ngành Ngôn ngữ Hàn Quốc
+        và cùng lưu giữ những khoảnh khắc ý nghĩa nhất ✨
+      </p>
+
+      <div class="name">
+        Đoàn Thị Lệ Huyền
+      </div>
+
+      <div class="major">
+        Khoa Ngôn ngữ Hàn Quốc 🇰🇷
+      </div>
+
+      <div class="info">
+
+        <div class="info-box">
+          <span>📅 Ngày tổ chức</span>
+          <strong>30/06/2026</strong>
+        </div>
+
+        <div class="info-box">
+          <span>⏰ Thời gian</span>
+          <strong>08:00 AM</strong>
+        </div>
+
+        <div class="info-box">
+          <span>📍 Địa điểm</span>
+          <strong>Hội trường Đại học</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="gallery">
+
+    <h2>
+      📸 Gallery thanh xuân
+    </h2>
+
+    <div class="gallery-grid">
+
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop" />
+      </div>
+
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop" />
+      </div>
+
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop" />
+      </div>
+
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" />
+      </div>
+
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1200&auto=format&fit=crop" />
+      </div>
+
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?q=80&w=1200&auto=format&fit=crop" />
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="countdown">
+
+    <h2>
+      ⏳ Countdown tới ngày tốt nghiệp
+    </h2>
+
+    <div class="countdown-box">
+
+      <div class="countdown-item">
+        <span id="days">0</span>
+        <small>Ngày</small>
+      </div>
+
+      <div class="countdown-item">
+        <span id="hours">0</span>
+        <small>Giờ</small>
+      </div>
+
+      <div class="countdown-item">
+        <span id="minutes">0</span>
+        <small>Phút</small>
+      </div>
+
+      <div class="countdown-item">
+        <span id="seconds">0</span>
+        <small>Giây</small>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="footer">
+
+    <h2>
+      🌸 Thank You
+    </h2>
+
+    <p>
+      Cảm ơn vì đã đồng hành cùng Huyền
+      trong suốt hành trình tuổi trẻ đầy ý nghĩa 💙
+    </p>
+
+    <div class="quote">
+      “청춘의 모든 순간은 빛났다.” ✨
+    </div>
+
+  </section>
+
+  <script type="module" src="/src/main.js"></script>
+
+  <script>
+
+    const targetDate =
+      new Date("2026-06-30T08:00:00").getTime()
+
+    function updateCountdown(){
+
+      const now = new Date().getTime()
+
+      const distance = targetDate - now
+
+      const days = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
+      )
+
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24))
+        / (1000 * 60 * 60)
+      )
+
+      const minutes = Math.floor(
+        (distance % (1000 * 60 * 60))
+        / (1000 * 60)
+      )
+
+      const seconds = Math.floor(
+        (distance % (1000 * 60))
+        / 1000
+      )
+
+      document.getElementById("days").innerText = days
+      document.getElementById("hours").innerText = hours
+      document.getElementById("minutes").innerText = minutes
+      document.getElementById("seconds").innerText = seconds
+    }
+
+    updateCountdown()
+
+    setInterval(updateCountdown,1000)
+
+  </script>
+
+</body>
+</html>
+```
