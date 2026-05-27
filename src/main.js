@@ -86,26 +86,6 @@ function initWishesForm() {
 
   if (calendarBtn) calendarBtn.href = getCalendarUrl();
 
-  let firebaseReady = null;
-  const loadFirebase = () => {
-    if (!firebaseReady) firebaseReady = import("./wishes.js");
-    return firebaseReady;
-  };
-
-  const section = document.getElementById("wishes");
-  if (section && "IntersectionObserver" in window) {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          loadFirebase();
-          obs.disconnect();
-        }
-      },
-      { rootMargin: "200px" }
-    );
-    obs.observe(section);
-  }
-
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
@@ -121,16 +101,18 @@ function initWishesForm() {
     btn.textContent = "Đang gửi...";
 
     try {
-      const { submitWish } = await loadFirebase();
+      const { submitWish } = await import("./wishes.js");
       await submitWish(name, message);
       form.hidden = true;
       panel.hidden = false;
       panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
       initFirebaseAnalytics();
-    } catch {
+    } catch (error) {
+      console.error("Wish submit failed:", error);
       btn.disabled = false;
       btn.textContent = "Gửi Lời Chúc 💌";
-      alert("Không gửi được lời chúc. Vui lòng thử lại sau.");
+      const reason = error instanceof Error ? error.message : "unknown_error";
+      alert(`Không gửi được lời chúc. Lý do: ${reason}`);
     }
   });
 }
