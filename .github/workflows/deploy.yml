@@ -1,12 +1,16 @@
-name: Deploy GitHub Pages
+name: Deploy on push
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -14,20 +18,47 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "22"
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build
+      - name: Build for Firebase Hosting
         run: npm run build
         env:
-          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
-          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
-          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_API_KEY: AIzaSyDpvZMsoWzG_-EaG1GFo56C14E41kAlNEI
+          VITE_FIREBASE_AUTH_DOMAIN: doanhuyen-4a0ea.firebaseapp.com
+          VITE_FIREBASE_PROJECT_ID: doanhuyen-4a0ea
+          VITE_FIREBASE_STORAGE_BUCKET: doanhuyen-4a0ea.firebasestorage.app
+          VITE_FIREBASE_MESSAGING_SENDER_ID: "801048409426"
+          VITE_FIREBASE_APP_ID: 1:801048409426:web:7874476ad9937d64f2f68b
+          VITE_FIREBASE_MEASUREMENT_ID: G-0Z625ZJSL7
+          VITE_GOOGLE_SCRIPT_URL: https://script.google.com/macros/s/AKfycbxwut2Z65dwg1Emf-k6rmwfSC6kMK0ljiXaRiue2wGREfK29IRDubhd4-e3GLCEIRmJCw/exec
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DOANHUYEN_4A0EA }}
+
+      - name: Deploy to Firebase Hosting
+        run: npx -y firebase-tools@latest deploy --only hosting --project doanhuyen-4a0ea --non-interactive
+
+      - name: Build for GitHub Pages
+        run: npm run build
+        env:
+          VITE_BASE: /doanhuyen/
+          VITE_FIREBASE_API_KEY: AIzaSyDpvZMsoWzG_-EaG1GFo56C14E41kAlNEI
+          VITE_FIREBASE_AUTH_DOMAIN: doanhuyen-4a0ea.firebaseapp.com
+          VITE_FIREBASE_PROJECT_ID: doanhuyen-4a0ea
+          VITE_FIREBASE_STORAGE_BUCKET: doanhuyen-4a0ea.firebasestorage.app
+          VITE_FIREBASE_MESSAGING_SENDER_ID: "801048409426"
+          VITE_FIREBASE_APP_ID: 1:801048409426:web:7874476ad9937d64f2f68b
+          VITE_FIREBASE_MEASUREMENT_ID: G-0Z625ZJSL7
+          VITE_GOOGLE_SCRIPT_URL: https://script.google.com/macros/s/AKfycbxwut2Z65dwg1Emf-k6rmwfSC6kMK0ljiXaRiue2wGREfK29IRDubhd4-e3GLCEIRmJCw/exec
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
