@@ -46,6 +46,12 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
+      - name: Deployment links
+        run: |
+          echo "## Firebase Hosting" >> "$GITHUB_STEP_SUMMARY"
+          echo "- https://${VITE_FIREBASE_PROJECT_ID}.web.app" >> "$GITHUB_STEP_SUMMARY"
+          echo "- https://${VITE_FIREBASE_PROJECT_ID}.firebaseapp.com" >> "$GITHUB_STEP_SUMMARY"
+
   deploy-github-pages:
     runs-on: ubuntu-latest
     env:
@@ -68,3 +74,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
+      - name: Deployment links
+        run: |
+          echo "## GitHub Pages" >> "$GITHUB_STEP_SUMMARY"
+          echo "- https://thanhdat130298.github.io/doanhuyen/" >> "$GITHUB_STEP_SUMMARY"
